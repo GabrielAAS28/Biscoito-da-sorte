@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
-import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import React, { useState } from 'react';
+import { Container, Img, TextoFrase, Botao, BtnArea, BtnTexto } from './src/styles';
 
 function App() {
-  const [img, setImg] = useState(require('./src/biscoito.png'));
+  const [imgSrc, setImgSrc] = useState(require('./src/biscoito.png'));
   const [textoFrase, setTextoFrase] = useState('');
 
   let frases = [
@@ -17,76 +17,35 @@ function App() {
     'A juventude não é uma época da vida, é um estado de espírito.'
   ];
 
-  function quebraBiscoito(){
-    let numeroAleatorio = Math.floor(Math.random()* frases.length)
-    setTextoFrase(' " ' + frases[numeroAleatorio] +' " ' );
-    setImg(require('./src/biscoitoAberto.png'));
+  function quebraBiscoito() {
+    let numeroAleatorio = Math.floor(Math.random() * frases.length);
+    setTextoFrase(' "' + frases[numeroAleatorio] + '" ');
+    setImgSrc(require('./src/biscoitoAberto.png'));
   }
 
-  function reiniciar(){
-   setImg(require('./src/biscoito.png'));
-   setTextoFrase('');
+  function reiniciar() {
+    setImgSrc(require('./src/biscoito.png'));
+    setTextoFrase('');
   }
 
   return (
-    <View style={Styles.container}>
-      <Image source={img} style={Styles.img} />
-      <Text style={Styles.textofrase}>{textoFrase}</Text>
+    <Container>
+      <Img source={imgSrc} />
+      <TextoFrase>{textoFrase}</TextoFrase>
 
-      <TouchableOpacity style={Styles.botao} onPress={quebraBiscoito}>
-        <View style={Styles.btnArea}>
-          <Text style={Styles.btnTexto}>Quebrar biscoito</Text>
-        </View>
-      </TouchableOpacity>
+      <Botao onPress={quebraBiscoito}>
+        <BtnArea>
+          <BtnTexto>Quebrar biscoito</BtnTexto>
+        </BtnArea>
+      </Botao>
 
-      <TouchableOpacity
-        style={[Styles.botao, {marginTop: 15, borderColor: '#121212'}]}
-        onPress={reiniciar}>
-        <View style={Styles.btnArea}>
-          <Text style={[Styles.btnTexto, {color: '#121212'}]}>
-          
-            Reiniciar biscoito
-          </Text>
-        </View>
-      </TouchableOpacity>
-    </View>
+      <Botao onPress={reiniciar}>
+        <BtnArea>
+          <BtnTexto style={{ color: '#121212' }}>Reiniciar biscoito</BtnTexto>
+        </BtnArea>
+      </Botao>
+    </Container>
   );
 }
-
-const Styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  img: {
-    width: 230,
-    height: 230,
-  },
-  textofrase: {
-    fontSize: 20,
-    color: '#dd7b22',
-    margin: 30,
-    fontStyle: 'italic',
-    textAlign: 'center',
-  },
-  botao: {
-    width: 230,
-    height: 50,
-    borderColor: '#dd7b22',
-    borderWidth: 2,
-    borderRadius: 25,
-  },
-  btnArea: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  btnTexto: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#dd7b22',
-  },
-});
 
 export default App;
